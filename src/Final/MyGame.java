@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-///Main Assignment
+//Main Assignment
 class Bricks {
 	
 	public int arr [][];
@@ -20,12 +20,12 @@ class Bricks {
 	public Bricks(int row, int col) {
 		images=new HashMap<>();
 		try {
-			images.put("brick2.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\darkbrown.png")));
-			images.put("brick6.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\Brick6.png")));
-			images.put("brick7.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\brick_wall_64x64\\Brick7.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			images.put("brick2.png", ImageIO.read(new File("Resources/darkbrown.png")));
+			images.put("brick6.png", ImageIO.read(new File("Resources/Brick6.png")));
+			images.put("brick7.png", ImageIO.read(new File("Resources/Brick7.png")));
+		} catch (Exception e) {
+			
+			System.out.println(e);
 		}
 	
 		arr = new int [row][col];
@@ -38,7 +38,7 @@ class Bricks {
 		
 	}
 	
-	// this draws the bricks
+	
 	public void draw(Graphics2D g) {
 		brickWidth = 30;
 		brickHeight = 10;
@@ -65,7 +65,7 @@ class Bricks {
 		}
 	}
 	
-	// this sets the value of brick to 0 if it is hit by the ball
+	
 	public void setBrickValue(int value, int row, int col) {
 		arr[row][col] = value;
 	}
@@ -101,13 +101,10 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 		setFocusable(true);
 	    pics=new HashMap<>();
 	    try {
-			pics.put("bar.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\bloodbar.png")));
-			pics.put("bar2.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\bar2.png")));
-			pics.put("background.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\City Background\\background.png")));
-			pics.put("background2.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\background2.png")));
-			pics.put("background4.png", ImageIO.read(new File("C:\\Users\\krish\\Downloads\\background4.png")));
+			pics.put("bar.png", ImageIO.read(new File("Resources/bloodbar.png")));
+			pics.put("background4.png", ImageIO.read(new File("Resources/background4.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		setFocusTraversalKeysEnabled(false);
@@ -136,7 +133,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 		g.setFont(new Font("MV Boli", Font.BOLD, 25));
 		g.drawString("Score: " + score, 530, 30);
 		
-		if (totalBricks <= 0) {// if all bricks are destroyed then you win
+		if (totalBricks <= 0) {
 			
 			play = false;
 			g.setColor(new Color(0XFF6464));
@@ -147,7 +144,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 			g.drawString("Press Enter to Restart.", 230, 350);
 		}
 		
-		if(ballposY > 570) { // if ball goes below the paddle then you lose 
+		if(ballposY > 570) {
 			play = false;
 			ballXdir = 0;
 			ballYdir = 0;
@@ -162,8 +159,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 		g.dispose();
 	}
 
-	
-	
+		
 	@Override
 	public void keyTyped(KeyEvent key) {
 		System.out.println(key);
@@ -171,7 +167,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 	
 	@Override
 	public void keyPressed(KeyEvent key) {
-		if(key.getKeyCode() == KeyEvent.VK_RIGHT) { // if right arrow key is pressed then paddle moves right
+		if(key.getKeyCode() == KeyEvent.VK_RIGHT) { 
 			if(playerX >= 600) {
 				playerX = 600;
 			} else {
@@ -181,7 +177,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 					
 			}
 		}
-		if(key.getKeyCode() == KeyEvent.VK_LEFT) { // if left arrow key is pressed then paddle moves left
+		if(key.getKeyCode() == KeyEvent.VK_LEFT) { 
 			if(playerX < 10) {
 				playerX = 10;
 			} else {
@@ -191,7 +187,7 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 			}
 		}
 		
-		if(key.getKeyCode() == KeyEvent.VK_ENTER) { // if enter key is pressed then game restarts
+		if(key.getKeyCode() == KeyEvent.VK_ENTER) { 
 			if(!play) {
 				play = true;
 				ballposX = 120;
@@ -213,21 +209,18 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 	public void keyReleased(KeyEvent arg0) {
 		
 	}
-	
-	
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		timer.start();
 		
 		if(play) {
-			// Ball - Pedal  interaction 
+			
 			if(new Rectangle(ballposX, ballposY, 15, 15).intersects(new Rectangle(playerX, playerY, 120, 20))) {
 				ballYdir = - ballYdir;
 			}
 			
-			for( int i = 0; i<map.arr.length; i++) { // Ball - Brick interaction
+			for( int i = 0; i<map.arr.length; i++) { 
 				for(int j = 0; j<map.arr[0].length; j++) { 
 					if(map.arr[i][j] > 0) {
 						int brickX = j*map.brickWidth + 110;
@@ -284,10 +277,6 @@ class GamePlay extends JPanel implements KeyListener,ActionListener  {
 
 	}
 	
-
-	
-
-
 }
 public class MyGame {
 
